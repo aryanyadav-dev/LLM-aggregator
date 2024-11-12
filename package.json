@@ -1,0 +1,16 @@
+{
+  "name": "llm-aggregator",
+  "version": "1.0.0",
+  "description": "This Flask application provides an interface for querying various language models (OpenAI, Google PaLM, Claude, Bard, BERT, LLaMA-3) and Midjourney. It includes voice input functionality and event reminder features with email notifications.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "vite": "^5.4.11"
+  }
+}
