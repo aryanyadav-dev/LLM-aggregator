@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Aggregator</title>
+
+    <!-- Link to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Link to styles.css in the src folder -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="animated-background"></div>
+
+    <nav class="navbar navbar-fixed">
+        <div class="brand">LLM Aggregator</div>
+        <a href="#" class="login-button">Login</a>
+    </nav>
+    
+    <div class="main-container">
+        <main class="main-content">
+            <h1 class="title">Choose Your AI Model</h1>
+            <p class="subtitle">Generate responses, explore AI capabilities, and find the best model for your needs.</p>
+
+            <!-- Form for choosing a model and submitting a prompt -->
+            <form id="llm-form" class="form-container" action="/results.html" method="get">
+                <select id="model" name="model" class="dropdown">
+                    <option value="GPT-4">GPT-4</option>
+                    <option value="PaLM">PaLM</option>
+                    <option value="Claude">Claude</option>
+                    <option value="Bard">Bard</option>
+                    <option value="BERT">BERT</option>
+                    <option value="LLaMA">LLaMA 3</option>
+                    <option value="Midjourney">Midjourney</option>
+                </select>
+                <div class="prompt-container">
+                    <textarea id="prompt" name="prompt" class="prompt-input" placeholder="Type your prompt here..."></textarea>
+                    <!-- Change button type to submit for form submission -->
+                    <button type="submit" class="arrow-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.828L16.95 10.778l-1.415 1.414L12 8.656l-3.535 3.535L7.05 10.778 12 5.828z"/></svg>
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <!-- Link to scripts.js in the src folder -->
+    <script src="scripts.js"></script>
+</body>
+</html>

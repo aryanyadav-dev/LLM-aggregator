@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Response - LLM Aggregator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        nav {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .new-prompt-btn {
+            background: #ff9f43;
+            color: #000;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .new-prompt-btn:hover {
+            background: #ffa857;
+            transform: translateY(-2px);
+        }
+
+        .error-state {
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+        }
+
+        .error-state h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .error-state p {
+            color: #999;
+            margin-bottom: 2rem;
+        }
+
+        .return-home {
+            display: inline-block;
+            background: #ff9f43;
+            color: #000;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .return-home:hover {
+            background: #ffa857;
+            transform: translateY(-2px);
+        }
+
+        .response-header,
+        .response-container,
+        .actions,
+        .info-section {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .response-header {
+            margin-bottom: 2rem;
+        }
+
+        .model-badge {
+            background-color: #ff9f43;
+            color: #000;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .prompt-text {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .timestamp {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        .response-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .loading-animation {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #ff9f43;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: #fff;
+        }
+
+        .response-text {
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .actions {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .action-btn {
+            background: #ff9f43;
+            color: #000;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: #ffa857;
+            transform: translateY(-2px);
+        }
+
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .info-card {
+            background: #2c2c2c;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            width: 30%;
+        }
+
+        .info-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .copied-tooltip {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ff9f43;
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: none;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="./index.html" class="logo">LLM Aggregator</a>
+        <a href="./index.html" class="new-prompt-btn" id="newPromptBtn">New Prompt</a>
+    </nav>
+
+    <div class="container">
+        <!-- Error State Container -->
+        <div class="error-state" id="errorState" style="display: none;">
+            <h2>Oops! Something's Missing</h2>
+            <p>We couldn't find the prompt or model selection. Let's start fresh!</p>
+            <a href="./index.html" class="return-home">Return to Home</a>
+        </div>
+
+        <!-- Regular Content -->
+        <div id="mainContent">
+            <div class="response-header">
+                <div class="model-badge" id="modelBadge">Loading...</div>
+                <h1 class="prompt-text" id="promptText">Loading prompt...</h1>
+                <p class="timestamp" id="timestamp"></p>
+            </div>
+
+            <div class="response-container">
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-animation"></div>
+                    <p class="loading-text">Generating response...</p>
+                </div>
+                <div class="response-text" id="responseText" style="display: none;"></div>
+            </div>
+
+            <div class="actions">
+                <button class="action-btn copy-btn" id="copyBtn">Copy Response</button>
+                <button class="action-btn regenerate-btn" id="regenerateBtn">Regenerate</button>
+            </div>
+
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Response Time</h3>
+                    <p id="responseTime">-</p>
+                </div>
+                <div class="info-card">
+                    <h3>Tokens Used</h3>
+                    <p id="tokensUsed">-</p>
+                </div>
+                <div class="info-card">
+                    <h3>Cost</h3>
+                    <p id="cost">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copied-tooltip" id="copiedTooltip">Copied to clipboard!</div>
+
+    <script>
+        // Enhanced URL parameter handling
+        function getUrlParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Check if we have necessary parameters
+        const prompt = getUrlParam('prompt');
+        const model = getUrlParam('model');
+
+        // Handle missing parameters
+        if (!prompt || !model) {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            gsap.to("#errorState", {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power4.out"
+            });
+        } else {
+            // Initialize the page with parameters
+            document.getElementById('promptText').textContent = decodeURIComponent(prompt);
+            document.getElementById('modelBadge').textContent = decodeURIComponent(model).toUpperCase();
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+
+            // Simulate API response
+            setTimeout(() => {
+                document.getElementById('loadingContainer').style.display = 'none';
+                
+                const responseText = document.getElementById('responseText');
+                responseText.style.display = 'block';
+                responseText.textContent = `This is a simulated response for the prompt: "${prompt}" using ${model}. In a real implementation, this would be replaced with the actual API response from the selected language model.`;
+
+                // Update info cards with simulated data
+                document.getElementById('responseTime').textContent = '1.2s';
+                document.getElementById('tokensUsed').textContent = '247';
+                document.getElementById('cost').textContent = '$0.005';
+
+                // Animate elements in
+                const elements = [
+                    ".response-header",
+                    ".response-container",
+                    ".actions",
+                    ".info-section"
+                ];
+
+                elements.forEach((element, index) => {
+                    gsap.to(element, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        delay: 0.2 * index,
+                        ease: "power4.out"
+                    });
+                });
+            }, 2000);
+        }
+
+        // Enhanced copy functionality
+        document.getElementById('copyBtn').addEventListener('click', async () => {
+            const responseText = document.getElementById('responseText').textContent;
+            try {
+                await navigator.clipboard.writeText(responseText);
+                const tooltip = document.getElementById('copiedTooltip');
+                gsap.to(tooltip, {
+                    opacity: 1,
+                    duration: 0.3,
+                    yoyo: true,
+                    repeat: 1,
+                    repeatDelay: 1
+                });
+            } catch (err) {
+                console.error('Failed to copy text:', err);
+            }
+        });
+
+        // Enhanced regenerate functionality
+        document.getElementById('regenerateBtn').addEventListener('click', () => {
+            // Animate out current response
+            gsap.to(".response-container", {
+                opacity: 0,
+                duration: 0.3,
+                onComplete: () => {
+                    document.getElementById('responseText').style.display = 'none';
+                    document.getElementById('loadingContainer').style.display = 'flex';
+                    gsap.to(".response-container", {
+                        opacity: 1,
+                        duration: 0.3
+                    });
+                    
+                    // Simulate new response
+                    setTimeout(() => {
+                        document.getElementById('loadingContainer').style.display = 'none';
+                        document.getElementById('responseText').style.display = 'block';
+                        gsap.to(".response-container", {
+                            opacity: 1,
+                            duration: 0.3
+                        });
+                    }, 2000);
+                }
+            });
+        });
+
+        // Handle navigation with state
+        document.getElementById('newPromptBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            gsap.to("body", {
+                opacity: 0,
+                duration: 0.3,
+                onComplete: () => {
+                    window.location.href = './index.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
