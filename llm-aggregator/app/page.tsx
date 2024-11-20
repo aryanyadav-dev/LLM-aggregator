@@ -117,7 +117,7 @@ export default function Home() {
       >
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-extrabold text-white mb-12">
-            Simple Pricing
+            Pricing Plans
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {pricingPlans.map((plan, index) => (
