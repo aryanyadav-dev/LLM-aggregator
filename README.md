@@ -19,7 +19,7 @@ This Flask application provides an interface for querying various language model
 - Google PaLM API
 - Claude API
 - Bard API
-- BERT and LLaMA-3 models from Hugging Face
+- Gemini and LLaMA-3 models from Hugging Face
 - Midjourney API
 - SpeechRecognition
 - Google API Client
