@@ -28,7 +28,7 @@ export default function Home() {
               Unify Your AI Experience with One Powerful Platform
             </h1>
             <p className="text-xl text-cyan-100 mb-8 leading-relaxed">
-              Seamlessly integrate GPT-4, Claude, PaLM, and more through our intelligent interface. 
+              Seamlessly integrate GPT-4, Claude, PaLM, and more through our intelligent interface.
               Experience the future of AI with smart model selection and unified management.
             </p>
             <div className="flex gap-4 justify-center">
@@ -88,27 +88,39 @@ export default function Home() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-cyan-100 mb-6">Simple Pricing</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-4xl font-extrabold text-white mb-12">
+            Simple Pricing
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {pricingPlans.map((plan, index) => (
-              <Card
+              <div
                 key={index}
-                className="p-8 border-blue-800/50 bg-gradient-to-br from-blue-900/90 to-indigo-900/90 backdrop-blur-sm rounded-xl"
+                className="p-8 rounded-3xl shadow-lg bg-gradient-to-b from-blue-900 to-indigo-900"
               >
-                <h3 className="text-2xl font-bold text-cyan-100 mb-4">{plan.name}</h3>
-                <p className="text-xl text-cyan-200 mb-4">{plan.price}</p>
-                <ul className="text-cyan-200 mb-4">
+                <h3 className="text-2xl font-bold text-cyan-100 mb-6">
+                  {plan.name}
+                </h3>
+                <p className="text-4xl font-bold text-white mb-6">
+                  {plan.price}
+                </p>
+                <ul className="text-cyan-200 space-y-3 mb-8">
                   {plan.features.map((feature, idx) => (
-                    <li key={idx} className="mb-2">{feature}</li>
+                    <li
+                      key={idx}
+                      className="flex items-center justify-center gap-3"
+                    >
+                      <span className="text-green-400"></span>
+                      {feature}
+                    </li>
                   ))}
                 </ul>
                 <Link href="/app">
-                  <Button size="lg" className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 text-white">
+                  <button className="w-full py-3 px-6 rounded-xl text-lg font-medium text-white bg-blue-600 hover:bg-blue-700">
                     Get Started
-                  </Button>
+                  </button>
                 </Link>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
