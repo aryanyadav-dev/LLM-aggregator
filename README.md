@@ -1,6 +1,8 @@
 # LLM Aggregator 
 
-This Flask application provides an interface for querying various language models (OpenAI, Google PaLM, Claude, Bard, BERT, LLaMA-3) and Midjourney. It includes voice input functionality and event reminder features with email notifications.
+<img width="1470" alt="Screenshot 2024-11-20 at 2 18 24 PM" src="https://github.com/user-attachments/assets/58c2c123-30b7-4c95-ae92-119e1a765f6d">
+
+This Flask application provides an interface for querying various language models (OpenAI, Google LLaMa, Claude, Bard, Gemini, LLaMA-3) and Midjourney. It includes voice input functionality and event reminder features with email notifications.
 
 ## Features
 
