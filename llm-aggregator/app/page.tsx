@@ -5,12 +5,37 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Brain, Cpu, Globe2, Layers, MessageSquare, Zap } from 'lucide-react';
+import { Link as ScrollLink } from 'react-scroll';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col bg-gradient-to-b from-indigo-950 via-blue-900 to-blue-950">
+      {/* Navbar Section */}
+      <motion.nav
+        className="bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-700 p-2 rounded-full mx-auto max-w-screen-xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="container mx-auto flex justify-center gap-8 text-white">
+          <ScrollLink to="hero" smooth={true} offset={-80} className="cursor-pointer hover:text-cyan-200">
+            Home
+          </ScrollLink>
+          <ScrollLink to="features" smooth={true} offset={-80} className="cursor-pointer hover:text-cyan-200">
+            Features
+          </ScrollLink>
+          <ScrollLink to="pricing" smooth={true} offset={-80} className="cursor-pointer hover:text-cyan-200">
+            Pricing
+          </ScrollLink>
+          <ScrollLink to="join" smooth={true} offset={-80} className="cursor-pointer hover:text-cyan-200">
+            Join
+          </ScrollLink>
+        </div>
+      </motion.nav>
+
       {/* Hero Section */}
       <motion.section
+        id="hero"
         className="relative bg-gradient-to-b from-indigo-950 via-blue-900 to-blue-950 pt-24 pb-32"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -49,6 +74,7 @@ export default function Home() {
 
       {/* Features Section */}
       <motion.section
+        id="features"
         className="py-24 bg-gradient-to-b from-blue-950 via-indigo-900 to-blue-900"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -82,6 +108,7 @@ export default function Home() {
 
       {/* Pricing Plans Section */}
       <motion.section
+        id="pricing"
         className="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-800 py-24"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -126,8 +153,9 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* CTA Section */}
+      {/* Join Section */}
       <motion.section
+        id="join"
         className="bg-gradient-to-r from-indigo-900 via-blue-900 to-blue-800 py-20"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -143,7 +171,7 @@ export default function Home() {
           </p>
           <Link href="/app">
             <Button size="lg" className="font-semibold px-8 bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 hover:from-blue-800 hover:via-blue-700 hover:to-indigo-800 text-cyan-50">
-              Start Building Now
+              Join Now
             </Button>
           </Link>
         </div>
@@ -151,7 +179,6 @@ export default function Home() {
     </main>
   );
 }
-
 
 const features = [
   {
