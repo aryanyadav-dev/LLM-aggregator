@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'LLM Hub - All Language Models in One Place',
+  title: 'AI Companion - All Language Models in One Place',
   description: 'Access multiple language models through a single, powerful interface. The ultimate LLM aggregator for developers and enterprises.',
 };
 
