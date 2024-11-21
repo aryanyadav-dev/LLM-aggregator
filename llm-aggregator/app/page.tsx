@@ -17,7 +17,7 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container mx-auto flex justify-center gap-8 text-white text-lg">
+        <div className="container mx-auto flex justify-center gap-8 text-white text-md">
           <ScrollLink to="hero" smooth={true} offset={-80} className="cursor-pointer hover:text-cyan-200">
             Home
           </ScrollLink>
