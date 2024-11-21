@@ -12,12 +12,12 @@ export default function Home() {
     <main className="flex min-h-screen flex-col bg-gradient-to-b from-indigo-950 via-blue-900 to-blue-950">
       {/* Navbar Section */}
       <motion.nav
-        className="bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-700 p-2 rounded-full mx-auto max-w-screen-xl"
+        className="bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-700 p-2 mt-4 rounded-full mx-auto max-w-screen-2xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container mx-auto flex justify-center gap-8 text-white">
+        <div className="container mx-auto flex justify-center gap-8 text-white text-lg">
           <ScrollLink to="hero" smooth={true} offset={-80} className="cursor-pointer hover:text-cyan-200">
             Home
           </ScrollLink>
