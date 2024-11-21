@@ -1,6 +1,6 @@
 # LLM Aggregator 
 
-<img width="1470" alt="Screenshot 2024-11-20 at 2 38 18 PM" src="https://github.com/user-attachments/assets/a03c09e7-3861-462c-8b06-47fd30a1b2e3">
+<img width="1465" alt="Screenshot 2024-11-21 at 12 01 56 PM" src="https://github.com/user-attachments/assets/fb58354f-9768-4abb-890d-68dbb3c0688e">
 
 This Flask application provides an interface for querying various language models (OpenAI, Google LLaMa, Claude, Bard, Gemini, LLaMA-3) and Midjourney. It includes voice input functionality and event reminder features with email notifications.
 
