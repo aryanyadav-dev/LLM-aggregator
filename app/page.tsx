@@ -25,8 +25,8 @@ export default function Home() {
       className="flex min-h-screen flex-col bg-cover bg-center bg-fixed"
       style={{ backgroundImage: "url('/Gradient 5.jpg')" }}
     >
-      {/* Navbar Section */}
-      <motion.nav
+     {/* Navbar Section */}
+     <motion.nav
         className={`fixed w-full top-0 z-50 transition-all duration-300 ${
           scrolled ? 'py-2' : 'py-4'
         }`}
@@ -49,21 +49,47 @@ export default function Home() {
 
             <div className="hidden md:flex items-center space-x-8">
               {['Home', 'Features', 'Pricing', 'Join'].map((item, index) => (
-                <ScrollLink
-                  key={item}
-                  to={item.toLowerCase()}
-                  smooth={true}
-                  offset={-80}
-                  className={`cursor-pointer relative group px-2 py-1`}
-                >
-                  <span className="relative z-10 text-white hover:text-cyan-200 transition-colors duration-200">
-                    {item}
-                  </span>
-                  <motion.span
-                    className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-                    whileHover={{ scaleX: 1 }}
-                  />
-                </ScrollLink>
+                item === 'Home' ? (
+                  <button
+                    key={item}
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="cursor-pointer px-2 py-1"
+                  >
+                    <div className="relative group">
+                      <span className="relative z-10 text-white hover:text-cyan-200 transition-colors duration-200">
+                        {item}
+                      </span>
+                      <span 
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform origin-left scale-x-0 transition-transform duration-200 ease-out group-hover:scale-x-100"
+                        style={{
+                          transformOrigin: 'left',
+                          willChange: 'transform'
+                        }}
+                      />
+                    </div>
+                  </button>
+                ) : (
+                  <ScrollLink
+                    key={item}
+                    to={item.toLowerCase()}
+                    smooth={true}
+                    offset={-80}
+                    className="cursor-pointer px-2 py-1"
+                  >
+                    <div className="relative group">
+                      <span className="relative z-10 text-white hover:text-cyan-200 transition-colors duration-200">
+                        {item}
+                      </span>
+                      <span 
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 transform origin-left scale-x-0 transition-transform duration-200 ease-out group-hover:scale-x-100"
+                        style={{
+                          transformOrigin: 'left',
+                          willChange: 'transform'
+                        }}
+                      />
+                    </div>
+                  </ScrollLink>
+                )
               ))}
             </div>
 
